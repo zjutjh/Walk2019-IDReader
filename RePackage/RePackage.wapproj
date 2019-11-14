@@ -1,0 +1,382 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0'">
+    <VisualStudioVersion>15.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup>
+    <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
+  </PropertyGroup>
+  <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
+  <PropertyGroup>
+    <ProjectGuid>c8270fab-3abc-4294-bcd0-3da14ddbc610</ProjectGuid>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <EntryPointProjectUniqueName>..\IdReader\IdReader.csproj</EntryPointProjectUniqueName>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>2BED37C8E3A7B6BF3989850D9BB9FF43DC86C970</PackageCertificateThumbprint>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AppxBundle>Always</AppxBundle>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Core\api-ms-win-core-console-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-datetime-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-debug-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-errorhandling-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-file-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-file-l1-2-0.dll" />
+    <Content Include="Core\api-ms-win-core-file-l2-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-handle-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-heap-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-interlocked-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-libraryloader-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-localization-l1-2-0.dll" />
+    <Content Include="Core\api-ms-win-core-memory-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-namedpipe-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-processenvironment-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-processthreads-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-processthreads-l1-1-1.dll" />
+    <Content Include="Core\api-ms-win-core-profile-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-rtlsupport-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-string-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-synch-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-synch-l1-2-0.dll" />
+    <Content Include="Core\api-ms-win-core-sysinfo-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-timezone-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-core-util-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-conio-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-convert-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-environment-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-filesystem-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-heap-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-locale-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-math-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-multibyte-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-private-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-process-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-runtime-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-stdio-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-string-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-time-l1-1-0.dll" />
+    <Content Include="Core\api-ms-win-crt-utility-l1-1-0.dll" />
+    <Content Include="Core\clrcompression.dll" />
+    <Content Include="Core\clretwrc.dll" />
+    <Content Include="Core\clrjit.dll" />
+    <Content Include="Core\config.ini" />
+    <Content Include="Core\Core.deps.json" />
+    <Content Include="Core\Core.dll" />
+    <Content Include="Core\Core.exe" />
+    <Content Include="Core\Core.pdb" />
+    <Content Include="Core\Core.runtimeconfig.json" />
+    <Content Include="Core\coreclr.dll" />
+    <Content Include="Core\dbgshim.dll" />
+    <Content Include="Core\device\install.bat" />
+    <Content Include="Core\device\samcoins.dll" />
+    <Content Include="Core\device\sdt_s_drv_x64.cat" />
+    <Content Include="Core\device\USBDrv.sys" />
+    <Content Include="Core\device\USBDrvCo.inf" />
+    <Content Include="Core\hostfxr.dll" />
+    <Content Include="Core\hostpolicy.dll" />
+    <Content Include="Core\license.dat" />
+    <Content Include="Core\Microsoft.CSharp.dll" />
+    <Content Include="Core\Microsoft.DiaSymReader.Native.amd64.dll" />
+    <Content Include="Core\Microsoft.VisualBasic.Core.dll" />
+    <Content Include="Core\Microsoft.VisualBasic.dll" />
+    <Content Include="Core\Microsoft.Win32.Primitives.dll" />
+    <Content Include="Core\Microsoft.Win32.Registry.dll" />
+    <Content Include="Core\mscordaccore.dll" />
+    <Content Include="Core\mscordaccore_amd64_amd64_4.700.19.46205.dll" />
+    <Content Include="Core\mscordbi.dll" />
+    <Content Include="Core\mscorlib.dll" />
+    <Content Include="Core\mscorrc.debug.dll" />
+    <Content Include="Core\mscorrc.dll" />
+    <Content Include="Core\netstandard.dll" />
+    <Content Include="Core\Newtonsoft.Json.dll" />
+    <Content Include="Core\sdtapi.dll" />
+    <Content Include="Core\SOS_README.md" />
+    <Content Include="Core\System.AppContext.dll" />
+    <Content Include="Core\System.Buffers.dll" />
+    <Content Include="Core\System.Collections.Concurrent.dll" />
+    <Content Include="Core\System.Collections.dll" />
+    <Content Include="Core\System.Collections.Immutable.dll" />
+    <Content Include="Core\System.Collections.NonGeneric.dll" />
+    <Content Include="Core\System.Collections.Specialized.dll" />
+    <Content Include="Core\System.ComponentModel.Annotations.dll" />
+    <Content Include="Core\System.ComponentModel.DataAnnotations.dll" />
+    <Content Include="Core\System.ComponentModel.dll" />
+    <Content Include="Core\System.ComponentModel.EventBasedAsync.dll" />
+    <Content Include="Core\System.ComponentModel.Primitives.dll" />
+    <Content Include="Core\System.ComponentModel.TypeConverter.dll" />
+    <Content Include="Core\System.Configuration.dll" />
+    <Content Include="Core\System.Console.dll" />
+    <Content Include="Core\System.Core.dll" />
+    <Content Include="Core\System.Data.Common.dll" />
+    <Content Include="Core\System.Data.DataSetExtensions.dll" />
+    <Content Include="Core\System.Data.dll" />
+    <Content Include="Core\System.Diagnostics.Contracts.dll" />
+    <Content Include="Core\System.Diagnostics.Debug.dll" />
+    <Content Include="Core\System.Diagnostics.DiagnosticSource.dll" />
+    <Content Include="Core\System.Diagnostics.FileVersionInfo.dll" />
+    <Content Include="Core\System.Diagnostics.Process.dll" />
+    <Content Include="Core\System.Diagnostics.StackTrace.dll" />
+    <Content Include="Core\System.Diagnostics.TextWriterTraceListener.dll" />
+    <Content Include="Core\System.Diagnostics.Tools.dll" />
+    <Content Include="Core\System.Diagnostics.TraceSource.dll" />
+    <Content Include="Core\System.Diagnostics.Tracing.dll" />
+    <Content Include="Core\System.dll" />
+    <Content Include="Core\System.Drawing.dll" />
+    <Content Include="Core\System.Drawing.Primitives.dll" />
+    <Content Include="Core\System.Dynamic.Runtime.dll" />
+    <Content Include="Core\System.Globalization.Calendars.dll" />
+    <Content Include="Core\System.Globalization.dll" />
+    <Content Include="Core\System.Globalization.Extensions.dll" />
+    <Content Include="Core\System.IO.Compression.Brotli.dll" />
+    <Content Include="Core\System.IO.Compression.dll" />
+    <Content Include="Core\System.IO.Compression.FileSystem.dll" />
+    <Content Include="Core\System.IO.Compression.ZipFile.dll" />
+    <Content Include="Core\System.IO.dll" />
+    <Content Include="Core\System.IO.FileSystem.AccessControl.dll" />
+    <Content Include="Core\System.IO.FileSystem.dll" />
+    <Content Include="Core\System.IO.FileSystem.DriveInfo.dll" />
+    <Content Include="Core\System.IO.FileSystem.Primitives.dll" />
+    <Content Include="Core\System.IO.FileSystem.Watcher.dll" />
+    <Content Include="Core\System.IO.IsolatedStorage.dll" />
+    <Content Include="Core\System.IO.MemoryMappedFiles.dll" />
+    <Content Include="Core\System.IO.Pipes.AccessControl.dll" />
+    <Content Include="Core\System.IO.Pipes.dll" />
+    <Content Include="Core\System.IO.UnmanagedMemoryStream.dll" />
+    <Content Include="Core\System.Linq.dll" />
+    <Content Include="Core\System.Linq.Expressions.dll" />
+    <Content Include="Core\System.Linq.Parallel.dll" />
+    <Content Include="Core\System.Linq.Queryable.dll" />
+    <Content Include="Core\System.Memory.dll" />
+    <Content Include="Core\System.Net.dll" />
+    <Content Include="Core\System.Net.Http.dll" />
+    <Content Include="Core\System.Net.HttpListener.dll" />
+    <Content Include="Core\System.Net.Mail.dll" />
+    <Content Include="Core\System.Net.NameResolution.dll" />
+    <Content Include="Core\System.Net.NetworkInformation.dll" />
+    <Content Include="Core\System.Net.Ping.dll" />
+    <Content Include="Core\System.Net.Primitives.dll" />
+    <Content Include="Core\System.Net.Requests.dll" />
+    <Content Include="Core\System.Net.Security.dll" />
+    <Content Include="Core\System.Net.ServicePoint.dll" />
+    <Content Include="Core\System.Net.Sockets.dll" />
+    <Content Include="Core\System.Net.WebClient.dll" />
+    <Content Include="Core\System.Net.WebHeaderCollection.dll" />
+    <Content Include="Core\System.Net.WebProxy.dll" />
+    <Content Include="Core\System.Net.WebSockets.Client.dll" />
+    <Content Include="Core\System.Net.WebSockets.dll" />
+    <Content Include="Core\System.Numerics.dll" />
+    <Content Include="Core\System.Numerics.Vectors.dll" />
+    <Content Include="Core\System.ObjectModel.dll" />
+    <Content Include="Core\System.Private.CoreLib.dll" />
+    <Content Include="Core\System.Private.DataContractSerialization.dll" />
+    <Content Include="Core\System.Private.Uri.dll" />
+    <Content Include="Core\System.Private.Xml.dll" />
+    <Content Include="Core\System.Private.Xml.Linq.dll" />
+    <Content Include="Core\System.Reflection.DispatchProxy.dll" />
+    <Content Include="Core\System.Reflection.dll" />
+    <Content Include="Core\System.Reflection.Emit.dll" />
+    <Content Include="Core\System.Reflection.Emit.ILGeneration.dll" />
+    <Content Include="Core\System.Reflection.Emit.Lightweight.dll" />
+    <Content Include="Core\System.Reflection.Extensions.dll" />
+    <Content Include="Core\System.Reflection.Metadata.dll" />
+    <Content Include="Core\System.Reflection.Primitives.dll" />
+    <Content Include="Core\System.Reflection.TypeExtensions.dll" />
+    <Content Include="Core\System.Resources.Reader.dll" />
+    <Content Include="Core\System.Resources.ResourceManager.dll" />
+    <Content Include="Core\System.Resources.Writer.dll" />
+    <Content Include="Core\System.Runtime.CompilerServices.Unsafe.dll" />
+    <Content Include="Core\System.Runtime.CompilerServices.VisualC.dll" />
+    <Content Include="Core\System.Runtime.dll" />
+    <Content Include="Core\System.Runtime.Extensions.dll" />
+    <Content Include="Core\System.Runtime.Handles.dll" />
+    <Content Include="Core\System.Runtime.InteropServices.dll" />
+    <Content Include="Core\System.Runtime.InteropServices.RuntimeInformation.dll" />
+    <Content Include="Core\System.Runtime.InteropServices.WindowsRuntime.dll" />
+    <Content Include="Core\System.Runtime.Intrinsics.dll" />
+    <Content Include="Core\System.Runtime.Loader.dll" />
+    <Content Include="Core\System.Runtime.Numerics.dll" />
+    <Content Include="Core\System.Runtime.Serialization.dll" />
+    <Content Include="Core\System.Runtime.Serialization.Formatters.dll" />
+    <Content Include="Core\System.Runtime.Serialization.Json.dll" />
+    <Content Include="Core\System.Runtime.Serialization.Primitives.dll" />
+    <Content Include="Core\System.Runtime.Serialization.Xml.dll" />
+    <Content Include="Core\System.Runtime.WindowsRuntime.dll" />
+    <Content Include="Core\System.Runtime.WindowsRuntime.UI.Xaml.dll" />
+    <Content Include="Core\System.Security.AccessControl.dll" />
+    <Content Include="Core\System.Security.Claims.dll" />
+    <Content Include="Core\System.Security.Cryptography.Algorithms.dll" />
+    <Content Include="Core\System.Security.Cryptography.Cng.dll" />
+    <Content Include="Core\System.Security.Cryptography.Csp.dll" />
+    <Content Include="Core\System.Security.Cryptography.Encoding.dll" />
+    <Content Include="Core\System.Security.Cryptography.OpenSsl.dll" />
+    <Content Include="Core\System.Security.Cryptography.Primitives.dll" />
+    <Content Include="Core\System.Security.Cryptography.X509Certificates.dll" />
+    <Content Include="Core\System.Security.dll" />
+    <Content Include="Core\System.Security.Principal.dll" />
+    <Content Include="Core\System.Security.Principal.Windows.dll" />
+    <Content Include="Core\System.Security.SecureString.dll" />
+    <Content Include="Core\System.ServiceModel.Web.dll" />
+    <Content Include="Core\System.ServiceProcess.dll" />
+    <Content Include="Core\System.Text.Encoding.CodePages.dll" />
+    <Content Include="Core\System.Text.Encoding.dll" />
+    <Content Include="Core\System.Text.Encoding.Extensions.dll" />
+    <Content Include="Core\System.Text.Encodings.Web.dll" />
+    <Content Include="Core\System.Text.Json.dll" />
+    <Content Include="Core\System.Text.RegularExpressions.dll" />
+    <Content Include="Core\System.Threading.Channels.dll" />
+    <Content Include="Core\System.Threading.dll" />
+    <Content Include="Core\System.Threading.Overlapped.dll" />
+    <Content Include="Core\System.Threading.Tasks.Dataflow.dll" />
+    <Content Include="Core\System.Threading.Tasks.dll" />
+    <Content Include="Core\System.Threading.Tasks.Extensions.dll" />
+    <Content Include="Core\System.Threading.Tasks.Parallel.dll" />
+    <Content Include="Core\System.Threading.Thread.dll" />
+    <Content Include="Core\System.Threading.ThreadPool.dll" />
+    <Content Include="Core\System.Threading.Timer.dll" />
+    <Content Include="Core\System.Transactions.dll" />
+    <Content Include="Core\System.Transactions.Local.dll" />
+    <Content Include="Core\System.ValueTuple.dll" />
+    <Content Include="Core\System.Web.dll" />
+    <Content Include="Core\System.Web.HttpUtility.dll" />
+    <Content Include="Core\System.Windows.dll" />
+    <Content Include="Core\System.Xml.dll" />
+    <Content Include="Core\System.Xml.Linq.dll" />
+    <Content Include="Core\System.Xml.ReaderWriter.dll" />
+    <Content Include="Core\System.Xml.Serialization.dll" />
+    <Content Include="Core\System.Xml.XDocument.dll" />
+    <Content Include="Core\System.Xml.XmlDocument.dll" />
+    <Content Include="Core\System.Xml.XmlSerializer.dll" />
+    <Content Include="Core\System.Xml.XPath.dll" />
+    <Content Include="Core\System.Xml.XPath.XDocument.dll" />
+    <Content Include="Core\Termb.dll" />
+    <Content Include="Core\ucrtbase.dll" />
+    <Content Include="Core\WindowsBase.dll" />
+    <Content Include="Core\WltRS.dll" />
+    <Content Include="Images\LargeTile.scale-100.png" />
+    <Content Include="Images\LargeTile.scale-125.png" />
+    <Content Include="Images\LargeTile.scale-150.png" />
+    <Content Include="Images\LargeTile.scale-200.png" />
+    <Content Include="Images\SmallTile.scale-100.png" />
+    <Content Include="Images\SmallTile.scale-125.png" />
+    <Content Include="Images\SmallTile.scale-150.png" />
+    <Content Include="Images\SmallTile.scale-200.png" />
+    <Content Include="Images\SplashScreen.scale-100.png" />
+    <Content Include="Images\SplashScreen.scale-125.png" />
+    <Content Include="Images\SplashScreen.scale-150.png" />
+    <Content Include="Images\SplashScreen.scale-200.png" />
+    <Content Include="Images\LockScreenLogo.scale-200.png" />
+    <Content Include="Images\Square150x150Logo.scale-100.png" />
+    <Content Include="Images\Square150x150Logo.scale-125.png" />
+    <Content Include="Images\Square150x150Logo.scale-150.png" />
+    <Content Include="Images\Square150x150Logo.scale-200.png" />
+    <Content Include="Images\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Images\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Images\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Images\Square44x44Logo.scale-100.png" />
+    <Content Include="Images\Square44x44Logo.scale-125.png" />
+    <Content Include="Images\Square44x44Logo.scale-150.png" />
+    <Content Include="Images\Square44x44Logo.scale-200.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Images\StoreLogo.scale-100.png" />
+    <Content Include="Images\StoreLogo.scale-125.png" />
+    <Content Include="Images\StoreLogo.scale-150.png" />
+    <Content Include="Images\StoreLogo.scale-200.png" />
+    <Content Include="Images\Wide310x150Logo.scale-100.png" />
+    <Content Include="Images\Wide310x150Logo.scale-125.png" />
+    <Content Include="Images\Wide310x150Logo.scale-150.png" />
+    <Content Include="Images\Wide310x150Logo.scale-200.png" />
+    <None Include="Package.StoreAssociation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IdReader\IdReader.csproj" />
+  </ItemGroup>
+  <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
+</Project>

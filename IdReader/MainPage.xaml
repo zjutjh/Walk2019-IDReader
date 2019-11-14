@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="IdReader.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IdReader"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="Page_Loaded">
+
+    <Grid>
+        <muxc:NavigationView IsBackButtonVisible="Collapsed"  ItemInvoked="NavView_ItemInvoked"  PaneTitle="精弘毅行身份证" >
+            <muxc:NavigationView.PaneCustomContent>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Padding="15,0,0,0" DoubleTapped="StackPanel_DoubleTapped"    >
+                    <Border x:Name="StColor" CornerRadius="999" Background="Yellow" Height="15" Width="15"></Border>
+                    <TextBlock Margin="10,0,0,0" x:Name="StText">等待连接</TextBlock>
+                </StackPanel>
+               
+            </muxc:NavigationView.PaneCustomContent>
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItemHeader  Content="起点"/>
+                <muxc:NavigationViewItem Icon="Play" Content="起点录入" Tag="start" />
+             
+                <muxc:NavigationViewItemSeparator></muxc:NavigationViewItemSeparator>
+                <muxc:NavigationViewItemHeader Content="终点"/>
+
+                <muxc:NavigationViewItem Icon="Refresh" Content="终点正常" Tag="end" />
+                <muxc:NavigationViewItem Icon="Download" Content="终点异常" Tag="endE" />
+               
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame"/>
+        </muxc:NavigationView>
+      
+
+
+    </Grid>
+</Page>

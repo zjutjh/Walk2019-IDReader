@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="IdReader.OutScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:IdReader"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.392*"/>
+            <ColumnDefinition Width="0.618*"/>
+        </Grid.ColumnDefinitions>
+        
+     
+        
+        <Grid  Background="#99041439">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Foreground="White" FontSize="100" FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind CurrentMember.GroupInfo.No,Mode=OneWay}" >0123</TextBlock>
+                <TextBlock Foreground="White" FontSize="80" FontWeight="Bold" HorizontalAlignment="Center" Text="{x:Bind CurrentMember.GroupInfo.Route,Mode=OneWay}">屏峰全程毅行</TextBlock>
+             
+            </StackPanel>
+        </Grid>
+        
+        <Grid Background="Green" Grid.Column="1" Height="200" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="75">验证通过</TextBlock>
+        </Grid>
+
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,100,0,0" FontSize="100">精弘毅行</TextBlock>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Margin="20">
+            <controls:HeaderedContentControl  Padding="20"
+                                     Header="队名" FontSize="64" 
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     Orientation="Horizontal"
+                                     >
+                <TextBlock FontSize="48" HorizontalAlignment="Center" FontWeight="Light" VerticalAlignment="Center" Padding="10,0,0,0"
+                           Text="{x:Bind CurrentMember.GroupInfo.Name,Mode=OneWay}"
+                           
+                           ></TextBlock>
+            </controls:HeaderedContentControl>
+            <controls:HeaderedContentControl  Padding="20"
+                                     Header="口号" FontSize="64" 
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     Orientation="Horizontal"
+                                     >
+                <TextBlock FontSize="48" HorizontalAlignment="Center" FontWeight="Light" VerticalAlignment="Center" Padding="10,0,0,0"
+                           Text="{x:Bind CurrentMember.GroupInfo.Description,Mode=OneWay}"
+                           ></TextBlock>
+            </controls:HeaderedContentControl>
+
+            <controls:HeaderedContentControl  Padding="20"
+                                     Header="姓名" FontSize="64" 
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     Orientation="Horizontal"
+                                     >
+                <TextBlock FontSize="48" HorizontalAlignment="Center" FontWeight="Light" VerticalAlignment="Center" Padding="10,0,0,0" Text="{x:Bind CurrentMember.IdCard.name,Mode=OneWay}"></TextBlock>
+            </controls:HeaderedContentControl>
+
+            <controls:HeaderedContentControl  Padding="20"
+                                     Header="性别" FontSize="64" 
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     Orientation="Horizontal"
+                                     >
+                <TextBlock FontSize="48" HorizontalAlignment="Center" FontWeight="Light" VerticalAlignment="Center" Padding="10,0,0,0" Text="{x:Bind CurrentMember.IdCard.sex,Mode=OneWay}">男</TextBlock>
+            </controls:HeaderedContentControl>
+     
+        </StackPanel>
+
+        <Grid  x:Name="Error"  Visibility="Collapsed" Background="Red" Grid.Column="0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="3">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="75" x:Name="ErrMsg">验证异常</TextBlock>
+        </Grid>
+
+    </Grid>
+</Page>
