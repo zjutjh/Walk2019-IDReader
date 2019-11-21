@@ -19,29 +19,38 @@ namespace IdReader
         public static readonly DependencyProperty CurrentMemberProperty = DependencyProperty.Register("CurrentMember", typeof(Member), typeof(OutScreen), new PropertyMetadata(new Member()));
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e != null)
+            try
             {
-                base.OnNavigatedTo(e);
-                if (e.Parameter != null)
+                if (e != null)
                 {
-                   
-                    CurrentMember = e.Parameter as Member;
-                    if (!CurrentMember.isOk)
+                    base.OnNavigatedTo(e);
+                    if (e.Parameter != null)
                     {
-                        Error.Visibility = Visibility.Visible;
-                        ErrMsg.Text = CurrentMember.msg;
+
+                        CurrentMember = e.Parameter as Member;
+                        if (!CurrentMember.isOk)
+                        {
+                            Error.Visibility = Visibility.Visible;
+                            ErrMsg.Text = CurrentMember.msg;
+                        }
+                        else
+                        {
+                            Error.Visibility = Visibility.Collapsed;
+                        }
                     }
                     else
                     {
-                        Error.Visibility = Visibility.Collapsed;
+                        Error.Visibility = Visibility.Visible;
+                        ErrMsg.Text = "等待刷卡";
                     }
                 }
-                else
-                {
-                    Error.Visibility = Visibility.Visible;
-                    ErrMsg.Text = "等待刷卡";
-                }
             }
+            catch (System.Exception)
+            {
+
+              
+            }
+          
            
 
         }

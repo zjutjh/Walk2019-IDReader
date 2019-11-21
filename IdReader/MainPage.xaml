@@ -30,7 +30,13 @@
                 <muxc:NavigationViewItem Icon="Download" Content="终点异常" Tag="endE" />
                
             </muxc:NavigationView.MenuItems>
-            <Frame x:Name="ContentFrame"/>
+            <Grid>
+                <Image Source="/Assets/jhlogo.png" Stretch="None" />
+                <Frame x:Name="ContentFrame"/>
+              
+            </Grid>
+          
+           
         </muxc:NavigationView>
       
 

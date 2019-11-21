@@ -9,8 +9,8 @@
     ".NETCoreApp,Version=v3.0/win-x64": {
       "Core/1.0.0": {
         "dependencies": {
-          "Microsoft.Windows.SDK.Contracts": "10.0.17134.1000",
-          "Newtonsoft.Json": "12.0.2",
+          "Microsoft.Windows.SDK.Contracts": "10.0.17763.1000",
+          "Newtonsoft.Json": "12.0.3",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "3.0.0"
         },
         "runtime": {
@@ -849,17 +849,17 @@
         }
       },
       "Microsoft.NETCore.Platforms/3.0.0": {},
-      "Microsoft.Windows.SDK.Contracts/10.0.17134.1000": {
+      "Microsoft.Windows.SDK.Contracts/10.0.17763.1000": {
         "dependencies": {
           "System.Runtime.WindowsRuntime": "4.6.0",
           "System.Runtime.WindowsRuntime.UI.Xaml": "4.6.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/12.0.3": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.2.23222"
+            "fileVersion": "12.0.3.23909"
           }
         }
       },
@@ -894,19 +894,19 @@
       "path": "microsoft.netcore.platforms/3.0.0",
       "hashPath": "microsoft.netcore.platforms.3.0.0.nupkg.sha512"
     },
-    "Microsoft.Windows.SDK.Contracts/10.0.17134.1000": {
+    "Microsoft.Windows.SDK.Contracts/10.0.17763.1000": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NQvuOXtBsDDX12jhAAzBKsjZvAf11XGmCGLQptcCbZPC/0Gr0V0O1q84TENd2g5GV7507QNPFC3NKl54pcSxpw==",
-      "path": "microsoft.windows.sdk.contracts/10.0.17134.1000",
-      "hashPath": "microsoft.windows.sdk.contracts.10.0.17134.1000.nupkg.sha512"
+      "sha512": "sha512-D1VmIbDU1caa+xYy3Soyk1wwpaJqpBgvjFONd0yDkwEtF0ANIP08Y01pk06erPcYZzM9xO7/fkg2wge37lHpiA==",
+      "path": "microsoft.windows.sdk.contracts/10.0.17763.1000",
+      "hashPath": "microsoft.windows.sdk.contracts.10.0.17763.1000.nupkg.sha512"
     },
-    "Newtonsoft.Json/12.0.2": {
+    "Newtonsoft.Json/12.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
-      "path": "newtonsoft.json/12.0.2",
-      "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "System.Runtime.WindowsRuntime/4.6.0": {
       "type": "package",

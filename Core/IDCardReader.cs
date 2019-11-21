@@ -68,10 +68,10 @@ namespace Core
         {
             try
             {
-                byte[] imgData = new byte[40960];
+                //byte[] imgData = new byte[40960];
                 int length = 40960;
-                CVRSDK.Getbase64BMPData(ref imgData[0], ref length);
-              
+                //CVRSDK.Getbase64BMPData(ref imgData[0], ref length);
+
                 byte[] name = new byte[128];
                 length = 128;
                 CVRSDK.GetPeopleName(ref name[0], ref length);
@@ -134,7 +134,7 @@ namespace Core
                 {
                     IDCard card = new IDCard()
                     {
-                        ImgString = Encoding.GetEncoding("GB2312").GetString(imgData).Trim('\0'),
+                        //ImgString = Encoding.GetEncoding("GB2312").GetString(imgData).Trim('\0'),
                         sex = Encoding.GetEncoding("GB2312").GetString(sex).Trim('\0'),
                         name = Encoding.GetEncoding("GB18030").GetString(name).Trim('\0'),
                         number = Encoding.GetEncoding("GB18030").GetString(number).Trim('\0'),

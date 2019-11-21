@@ -58,11 +58,11 @@ namespace IdReader.Models
             pairs.Add(new KeyValuePair<string, string>("iid", idNumber));
             if (isNormal)
             {
-                pairs.Add(new KeyValuePair<string, string>("code", "2"));
+                pairs.Add(new KeyValuePair<string, string>("code", "3"));
             }
             else
             {
-                pairs.Add(new KeyValuePair<string, string>("code", "3"));
+                pairs.Add(new KeyValuePair<string, string>("code", "2"));
             }
   
 
@@ -77,30 +77,39 @@ namespace IdReader.Models
 
         private void fullInfo(string json)
         {
-            JObject jo = JObject.Parse(json);
-            var data = jo.GetValue("data");
-            var code = jo.GetValue("code").ToString();
-
-
-            msg = jo.GetValue("msg").ToString();
-
-            if (code == "1")
+            try
             {
-                isOk = true;
-            }
-            var group = data["group"];
+                JObject jo = JObject.Parse(json);
+                var data = jo.GetValue("data");
+                var code = jo.GetValue("code").ToString();
 
-          
-            if (name == null)
-            {
-                var user = data["user"];
-                name = user["name"].ToString();
-             
+
+                msg = jo.GetValue("msg").ToString();
+
+                if (code == "1")
+                {
+                    isOk = true;
+                }
+                var group = data["group"];
+
+
+                if (name == null)
+                {
+                    var user = data["user"];
+                    name = user["name"].ToString();
+
+                }
+                if (group.HasValues != false)
+                {
+                    GroupInfo = new Group(group);
+                }
             }
-            if (group.HasValues != false)
+            catch (Exception)
             {
-                GroupInfo = new Group(group);
+
+       
             }
+           
            
         }
 

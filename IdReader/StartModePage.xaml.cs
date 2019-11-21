@@ -21,18 +21,12 @@ namespace IdReader
         {
             this.InitializeComponent();
         }
-        ~StartModePage()
-        {
-            if (newView != null)
-            {
-                newView.CoreWindow.Close();
-            }
-        }
 
         private bool normalMode { get; set; } = true;
         private bool endMode { get; set; } = false;
-        Frame Screenframe = null;
-        CoreApplicationView newView = null;
+        static Frame Screenframe = null;
+        static CoreApplicationView newView = null;
+        static ApplicationView newAppView = null;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -58,7 +52,7 @@ namespace IdReader
             else if (Tag == "end")
             {
                 endMode = true;
-                normalMode = false;
+                normalMode = true;
                 modeText.Text = "结束模式";
 
             }
@@ -77,7 +71,7 @@ namespace IdReader
         {
             newView = CoreApplication.CreateNewView();
             int newViewId = 0;
-            ApplicationView newAppView = null;
+           
             await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
 
@@ -96,7 +90,11 @@ namespace IdReader
                 newViewId = newAppView.Id;
             });
             var viewShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(newViewId);
-            newAppView.TryEnterFullScreenMode();
+
+            if (newAppView != null)
+            {
+                newAppView.TryEnterFullScreenMode();
+            }
 
         }
 
@@ -134,7 +132,7 @@ namespace IdReader
 
             Member m = new Member(CCReader.CurrentCard);
 
-            await checkAndStartOutScreen(m);
+            m=await checkAndStartOutScreen(m);
 
             GGReader.LoadGroup(m.GroupInfo);
         }
@@ -173,7 +171,16 @@ namespace IdReader
                     {
                         await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
-                            Screenframe.Navigate(typeof(OutScreen), m);
+                            try
+                            {
+
+                                Screenframe.Navigate(typeof(OutScreen), m);
+                            }
+                            catch (Exception)
+                            {
+
+                            }
+                          
                         });
                     }
                     catch (Exception)
@@ -210,5 +217,7 @@ namespace IdReader
             GGReader.LoadGroup(m.GroupInfo);
 
         }
+
+       
     }
 }

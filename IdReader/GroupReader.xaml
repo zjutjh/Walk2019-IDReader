@@ -27,6 +27,10 @@
                 <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentGroup.No,Mode=OneWay}">男</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="25,15,31,0">
+                <TextBlock Foreground="#FF5B95FF" Padding="5,0,10,0" FontSize="16">人 数</TextBlock>
+                <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentGroup.Members,Mode=OneWay}">2000年2月30日</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25,15,31,0">
                 <TextBlock Foreground="#FF5B95FF" Padding="5,0,10,0" FontSize="16">队  长</TextBlock>
                 <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentGroup.Caption,Mode=OneWay}">2000年2月30日</TextBlock>
             </StackPanel>

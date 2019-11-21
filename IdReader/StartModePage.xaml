@@ -40,6 +40,7 @@
                             <KeyboardAccelerator Modifiers="Control" Key="O" />
                         </AppBarButton.KeyboardAccelerators>
                     </AppBarButton>
+                   
                 </CommandBar.SecondaryCommands>
             </CommandBar>
 

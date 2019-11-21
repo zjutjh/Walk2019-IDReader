@@ -9,6 +9,7 @@ namespace IdReader.Models
         public string No { get; set; }
         public string Route { get; set; }
         public string Caption { get; set; }
+        public string Members { get; set; }
         public string isSubmit { get; set; }
 
         public string GroupId { get; set; }
@@ -23,6 +24,7 @@ namespace IdReader.Models
             Route = json["route"].ToString();
             Caption = json["captain_name"].ToString();
             isSubmit = json["is_submit"].ToString();
+            Members = json["members"].ToString();
 
         }
 
