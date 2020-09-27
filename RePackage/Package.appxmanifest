@@ -10,7 +10,7 @@
   <Identity
     Name="15275ichen.IDReader"
     Publisher="CN=F67D8B2C-93A6-482B-9BE2-00CD61030093"
-    Version="1.2.29.0" />
+    Version="1.2.30.0" />
 
   <Properties>
     <DisplayName>IDReader</DisplayName>

@@ -17,41 +17,27 @@ namespace IdReader
             set { SetValue(CurrentMemberProperty, value); }
         }
         public static readonly DependencyProperty CurrentMemberProperty = DependencyProperty.Register("CurrentMember", typeof(Member), typeof(OutScreen), new PropertyMetadata(new Member()));
+       
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
+            base.OnNavigatedTo(e);
+            if (e.Parameter == null)
             {
-                if (e != null)
-                {
-                    base.OnNavigatedTo(e);
-                    if (e.Parameter != null)
-                    {
-
-                        CurrentMember = e.Parameter as Member;
-                        if (!CurrentMember.isOk)
-                        {
-                            Error.Visibility = Visibility.Visible;
-                            ErrMsg.Text = CurrentMember.msg;
-                        }
-                        else
-                        {
-                            Error.Visibility = Visibility.Collapsed;
-                        }
-                    }
-                    else
-                    {
-                        Error.Visibility = Visibility.Visible;
-                        ErrMsg.Text = "等待刷卡";
-                    }
-                }
+                Error.Visibility = Visibility.Visible;
+                ErrMsg.Text = "等待刷卡";
+                return;
             }
-            catch (System.Exception)
+
+            CurrentMember = e.Parameter as Member;
+            if (!CurrentMember.isOk)
             {
-
-              
+                Error.Visibility = Visibility.Visible;
+                ErrMsg.Text = CurrentMember.msg;
             }
-          
-           
+            else
+            {
+                Error.Visibility = Visibility.Collapsed;
+            }
 
         }
     }

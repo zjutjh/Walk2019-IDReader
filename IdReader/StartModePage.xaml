@@ -10,19 +10,22 @@
     Background="Transparent">
 
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,29,0,0" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top"   Margin="0,29,0,0" >
             <TextBlock x:Name="modeText" FontSize="40">起点模式</TextBlock>
-            <TextBlock  FontSize="20" Foreground="Red" x:Name="unfinished" HorizontalAlignment="Center" Visibility="Collapsed">(未完成)</TextBlock>
+            <TextBlock  FontSize="20" Foreground="Red" x:Name="unfinished" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">(未完成)</TextBlock>
         </StackPanel>
        
-        <ScrollViewer Margin="0,100,0,100" >
+        <ScrollViewer Margin="0,100,0,00" >
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <AutoSuggestBox Header="身份证手工输入" QuerySubmitted="AutoSuggestBox_QuerySubmitted" ></AutoSuggestBox>
-                <local:CardReader x:Name="CCReader" MinWidth="300" Margin="0,20,0,0"  VerticalAlignment="Center" IDCardReceived="CCReader_IDCardReceived"></local:CardReader>
-                <local:GroupReader x:Name="GGReader"  MinWidth="300" Margin="0,20,0,0" MinHeight="250" ></local:GroupReader>
                 <Grid x:Name="RxStBack" Background="Yellow"  Height="100" Margin="0,20,0,0" CornerRadius="30">
                     <TextBlock x:Name="RxStText" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="45" Padding="10">等待验证</TextBlock>
                 </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <local:CardReader x:Name="CCReader" MinWidth="300" Margin="20"  VerticalAlignment="Center" IDCardReceived="CCReader_IDCardReceived"></local:CardReader>
+                    <local:GroupReader x:Name="GGReader"  MinWidth="300" Margin="20" MinHeight="250" ></local:GroupReader>
+
+                </StackPanel>
+                <AutoSuggestBox Header="身份证手工输入" QuerySubmitted="AutoSuggestBox_QuerySubmitted" Margin="0,0,0,80"></AutoSuggestBox>
             </StackPanel>
         </ScrollViewer>
      

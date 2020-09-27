@@ -14,7 +14,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
 
 namespace IdReader
 {
@@ -24,7 +23,6 @@ namespace IdReader
         {
             this.InitializeComponent();
         }
-
 
         public delegate void GroupReceivedEventHandler(object sender, System.EventArgs e);
         public event GroupReceivedEventHandler GroupReceived;
@@ -54,16 +52,10 @@ namespace IdReader
         public Group LoadGroup(Group group)
         {
             if (group != null)
-            {
                 CurrentGroup = group;
-            }
             else
-            {
-                CurrentGroup = new Group(); 
-            }
-
+                CurrentGroup = new Group();
             return CurrentGroup;
-
         }
     }
 }

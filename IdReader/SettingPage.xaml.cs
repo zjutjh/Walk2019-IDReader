@@ -13,14 +13,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
+using static BridgeLibs.AppServiceMessage;
 
 namespace IdReader
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
+
     public sealed partial class SettingPage : Page
     {
         public SettingPage()
@@ -46,7 +43,8 @@ namespace IdReader
         private async void InstallDevice(object sender, RoutedEventArgs e)
         {
             ValueSet vs = new ValueSet();
-            vs.Add("install", System.AppDomain.CurrentDomain.BaseDirectory);
+            vs.Add("mode", "install");
+            vs.Add("path", System.AppDomain.CurrentDomain.BaseDirectory);
             AppServiceConnection connection = App.Connection;
             if (connection != null)
             {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace IdReader
 {
@@ -13,14 +9,12 @@ namespace IdReader
         public static string GetMD5(string myString)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] fromData = System.Text.Encoding.ASCII.GetBytes(myString);
-            byte[] targetData = md5.ComputeHash(fromData);
-            string byte2String = null;
+            var fromData = Encoding.UTF8.GetBytes(myString);
+            var targetData = md5.ComputeHash(fromData);
+            string byte2String = "";
 
-            for (int i = 0; i < targetData.Length; i++)
-            {
-                byte2String += targetData[i].ToString("x2");
-            }
+            foreach (var item in targetData)
+                byte2String += item.ToString("x2");
 
             return byte2String.ToLower();
         }
@@ -30,14 +24,12 @@ namespace IdReader
         public static string testUrl = "https://wx.idevlab.cn/user/verify";
         private static string _serverUrl = "https://walk.zjutjh.com/user/verify";
 
-        public static string serverUrl
+        public static string ServerUrl
         {
             get
             {
                 if (TestMode)
-                {
                     return testUrl;
-                }
                 return _serverUrl;
             }
         }

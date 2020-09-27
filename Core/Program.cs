@@ -1,183 +1,136 @@
+using BridgeLibs;
+using Core.Utils;
 using Newtonsoft.Json;
+using Shared;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
+using static BridgeLibs.AppServiceMessage;
 
 namespace Core
 {
-   public class Program
+    public class Program
     {
         static AppServiceConnection connection = null;
         public static IDCardReader reader = null;
-        /// <summary>
-        /// Creates an app service thread
-        /// </summary>
+
         static void Main(string[] args)
         {
-
-            try
-            {
-                reader = new IDCardReader();
-            }
-            catch (Exception)
-            {
-            }
-
-
-            Thread appServiceThread = new Thread(new ThreadStart(ThreadProc));
+            var appServiceThread = new Thread(new ThreadStart(AppServiceThread));
             appServiceThread.Start();
             while (true)
-            {
                 Thread.Sleep(10000);
-            }
-
 
         }
 
-        /// <summary>
-        /// Creates the app service connection
-        /// </summary>
-        static async void ThreadProc()
+        static async void AppServiceThread()
         {
             connection = new AppServiceConnection();
             connection.AppServiceName = "CommunicationServiceX";
             connection.PackageFamilyName = "15275ichen.IDReader_ht7yjew84py3y";
             connection.RequestReceived += Connection_RequestReceived;
-
             AppServiceConnectionStatus status = await connection.OpenAsync();
-            switch (status)
-            {
-                case AppServiceConnectionStatus.Success:
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Connection established - waiting for requests");
-                    Console.WriteLine();
-                    break;
-                case AppServiceConnectionStatus.AppNotInstalled:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("The app AppServicesProvider is not installed.");
-                    return;
-                case AppServiceConnectionStatus.AppUnavailable:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("The app AppServicesProvider is not available.");
-                    return;
-                case AppServiceConnectionStatus.AppServiceUnavailable:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(string.Format("The app AppServicesProvider is installed but it does not provide the app service {0}.", connection.AppServiceName));
-                    return;
-                case AppServiceConnectionStatus.Unknown:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(string.Format("An unkown error occurred while we were trying to open an AppServiceConnection."));
-                    return;
-            }
+            Console.WriteLine(status);
         }
 
-        /// <summary>
-        /// Receives message from UWP app and sends a response back
-        /// </summary>
-        private static async void Connection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
+
+        private async static void Connection_RequestReceived(AppServiceConnection sender, AppServiceRequestReceivedEventArgs args)
         {
-            string key = args.Request.Message.First().Key;
-            string value = args.Request.Message.First().Value.ToString();
-
-            ValueSet valueSet = new ValueSet();
+            Console.WriteLine("213");
+            ValueSet responseValueSet = new ValueSet();
 
 
-            if (key == "check")
+            if (!args.Request.Message.ContainsKey("mode"))
             {
-                if (reader != null)
-                {
-                    valueSet.Add("run", "run");
-                }
-                else
-                {
-                   
-                    try
-                    {
-                        reader = new IDCardReader();
-                        valueSet.Add("run", "run");
-                    }
-                    catch (Exception)
-                    {
-                        valueSet.Add("noReader", "run");
-                    }
-                }
-            }
-            else if (key == "install")
-            {
-                RunBat(value + "Core\\device\\install.bat");
+                responseValueSet.Add("code", AppServiceMessage.AppServiceResponseCode.Unsupport.ToString());
+                responseValueSet.Add("msg", "Unsupport");
             }
             else
             {
-                if (reader == null)
+                AppServiceModeMessage value = AppServiceModeMessageConvert(args.Request.Message["mode"].ToString());
+                switch (value)
                 {
-                    try
-                    {
-                        reader = new IDCardReader();
-                    }
-                    catch
-                    {
+                    case AppServiceModeMessage.install:
 
-                    }
+                        InstallDevice(args.Request.Message["path"].ToString());
+                        responseValueSet.Add("code", AppServiceMessage.AppServiceResponseCode.OK.ToString());
+                        responseValueSet.Add("msg", "OK");
+                        break;
+                    case AppServiceModeMessage.check:
+                        CheckCard(responseValueSet);
+                        break;
+                    case AppServiceModeMessage.initReader:
+                        InitReader(responseValueSet);
+                        break;
+                    case AppServiceModeMessage.readCard:
+                        ReadCard(responseValueSet);
+                        break;
+                    default:
+                        responseValueSet.Add("code", AppServiceMessage.AppServiceResponseCode.Unsupport.ToString());
+                        responseValueSet.Add("msg", "Unsupport");
+                        break;
                 }
-                if (reader != null)
-                {
-                    var idcard = reader.Read();
-                    if (idcard != null)
-                    {
-                        if (idcard.number != "")
-                        {
-                            valueSet.Add("data", ConvertJsonString(idcard));
-                        }
-
-                    }
-                    else
-                    {
-                      
-                    }
-                }
-              
 
             }
 
-            await args.Request.SendResponseAsync(valueSet);
+
+            await args.Request.SendResponseAsync(responseValueSet);
         }
 
-
-
-        private static string ConvertJsonString(object obj)
+        private static void CheckCard(ValueSet valueSet)
         {
-            JsonSerializer serializer = new JsonSerializer();
-            if (obj != null)
+            if (reader == null)
+                valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.noReader.ToString());
+            else
+                try
+                {
+                    reader.PrepareRead();
+                    valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.OK.ToString());
+                }
+                catch (NoReaderException)
+                {
+                    valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.noReader.ToString());
+                }
+               
+        }
+
+        private static void ReadCard(ValueSet valueSet)
+        {
+            try
             {
-                StringWriter textWriter = new StringWriter();
-                JsonTextWriter jsonWriter = new JsonTextWriter(textWriter)
-                {
-                    Formatting = Formatting.Indented,
-                    Indentation = 4,
-                    IndentChar = ' '
-                };
-                serializer.Serialize(jsonWriter, obj);
-                return textWriter.ToString();
+                var card = reader.Read();
+                valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.OK.ToString());
+                valueSet.Add("data", Newtonsoft.Json.JsonConvert.SerializeObject(card));
             }
-
-            return null;
+            catch (Exception)
+            {
+                valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.Unknow.ToString());
+                reader = null;
+            }
         }
 
-
-        private static void RunBat(string batPath)
+        private static void InitReader(ValueSet valueSet)
         {
-            Process pro = new Process();
-            FileInfo file = new FileInfo(batPath);
-            pro.StartInfo.WorkingDirectory = file.Directory.FullName;
-            pro.StartInfo.FileName = batPath;
-            pro.StartInfo.CreateNoWindow = false;
-            pro.Start();
+            try
+            {
+                reader = new IDCardReader();
+                valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.OK.ToString());
+            }
+            catch (Exception)
+            {
+                reader = null;
+                valueSet.Add("code", AppServiceMessage.AppServiceResponseCode.noReader.ToString());
+
+            }
         }
+
+        private static void InstallDevice(string path)
+        {
+            CoreUtils.RunBat(path + "\\Core\\device\\install.bat");
+        }
+
 
     }
 }

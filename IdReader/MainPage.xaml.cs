@@ -1,96 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.AppService;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 namespace IdReader
-{   /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
+{
     public sealed partial class MainPage : Page
     {
+
         public MainPage()
         {
             this.InitializeComponent();
-        }
+        } 
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private  void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
-            timer.Tick += CheckServer;
-            timer.Start();
+            App.coreManager.CheckResponseChanged += CoreManager_CheckResponseReceived;
+            App.coreManager.LaunchBridge();
             ContentFrame.Navigate(typeof(StartModePage), "start");
         }
 
-        private async void CheckServer(object sender, object e)
+        private void CoreManager_CheckResponseReceived(object sender, CheckResponseChangedArgs e)
         {
-            ValueSet vs = new ValueSet();
-            vs.Add("check", "IDCard");
-            AppServiceConnection connection = App.Connection;
-        
-
-            if (connection == null)
+            switch (e.message)
             {
-                StColor.Background = new SolidColorBrush(Colors.Red);
-                StText.Text = "未连接到服务";
-                return;
+                case BridgeLibs.AppServiceMessage.AppServiceStatus.OK:
+                    SystemInfoColor.Background = new SolidColorBrush(Colors.Green);
+                    break;
+                case BridgeLibs.AppServiceMessage.AppServiceStatus.noReader:
+                    SystemInfoColor.Background = new SolidColorBrush(Colors.Red);
+                    break;
+                case BridgeLibs.AppServiceMessage.AppServiceStatus.DisConnect:
+                    SystemInfoColor.Background = new SolidColorBrush(Colors.Yellow);
+                    break;
+                default:
+                    break;
             }
-
-            try
-            {
-                var vss = await connection.SendMessageAsync(vs);
-                if (vss.Message.Keys.Count < 1)
-                {
-                    StColor.Background = new SolidColorBrush(Colors.Red);
-                    StText.Text = "未连接到服务";
-                    return;
-                }
-                else if (vss.Message.Keys.First() == "noReader")
-                {
-                    StColor.Background = new SolidColorBrush(Colors.Red);
-                    StText.Text = "未连接到刷卡机";
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-                StColor.Background = new SolidColorBrush(Colors.Red);
-                StText.Text = "未连接到服务";
-                return;
-            }
-
-
-            StColor.Background = new SolidColorBrush(Colors.Green);
-            StText.Text = "已连接到服务";
-            return;
-
-        }
-
-        private void Connection_ServiceClosed(AppServiceConnection sender, AppServiceClosedEventArgs args)
-        {
-            StColor.Background = new SolidColorBrush(Colors.Red);
-            StText.Text = "未连接到服务";
-            App.Connection = null;
         }
 
         private void NavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
@@ -105,8 +57,6 @@ namespace IdReader
                 NavView_Navigate(navItemTag, args.RecommendedNavigationTransitionInfo);
             }
         }
-
-     
 
         private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
         {
@@ -131,17 +81,13 @@ namespace IdReader
         }
 
 
-        private async void LunchBridge()
-        {
-            await FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
-        }
+       
 
         private void StackPanel_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            if (StText.Text == "未连接到服务")
-            {
-                LunchBridge();
-            }
+            if (App.coreManager.appServiceStatus == BridgeLibs.AppServiceMessage.AppServiceStatus.DisConnect)
+                App.coreManager.LaunchBridge();
+
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using CVR100A;
+﻿using Core.Utils;
+using CVR100A;
 using Shared;
 using System;
 using System.IO;
 using System.Text;
+using Windows.Graphics.Display;
+using Windows.Storage.Provider;
 
 namespace Core
 {
@@ -12,6 +15,7 @@ namespace Core
         {
             InitIdReader();
         }
+
         ~IDCardReader()
         {
             CVRSDK.CVR_CloseComm();
@@ -19,141 +23,103 @@ namespace Core
 
         public IDCard Read()
         {
-            if (prepareRead())
-            {
+            if (PrepareRead())
                 return GetData();
-            }
             return null;
         }
 
         public void InitIdReader()
         {
-         
-                int iPort, iRetUSB = 0;
-                for (iPort = 1001; iPort <= 1016; iPort++)
-                {
-                    iRetUSB = CVRSDK.CVR_InitComm(iPort);
-                    if (iRetUSB == 1)
-                    {
-                        break;
-                    }
-                }
+            InitCommState USBState = 0;
+            for (int Port = 1001; Port <= 1016; Port++)
+            {
+                USBState = (InitCommState)CVRSDK.CVR_InitComm(Port);
+                if (USBState == InitCommState.OK) return;
+            }
 
-            if (iRetUSB != 1)
-                throw new Exception();
-            
+            switch (USBState)
+            {
+                case InitCommState.PortOpenFail:
+                    throw new Exception();
+                case InitCommState.Unknow:
+                    throw new Exception();
+                case InitCommState.DllLoadErrar:
+                    throw new DllLoadException();
+            }
+
         }
 
-        private bool prepareRead()
+        public bool PrepareRead()
         {
-            int authenticate = CVRSDK.CVR_Authenticate();
-            if (authenticate == 1)
+            AuthenticateState authenticateState = (AuthenticateState)CVRSDK.CVR_Authenticate();
+            switch (authenticateState)
             {
-                int readContent = CVRSDK.CVR_Read_Content(1);
-               
-                if (readContent == 1)
-                {
-                    return true;
-                }
-
-            }
-            else if(authenticate==4)
-            {
-                Program.reader = null;
+                case AuthenticateState.OK:
+                    int readContent = CVRSDK.CVR_Read_Content(1);
+                    if (readContent == 1)
+                        return true;
+                    break;
+                case AuthenticateState.FindCardFail:
+                    break;
+                case AuthenticateState.SelectCardFail:
+                    break;
+                case AuthenticateState.NoReader:
+                    throw new NoReaderException();
+                case AuthenticateState.DllLoadErrar:
+                    throw new DllLoadException();
             }
             return false;
+        }
+        public delegate int ReadFunction(ref byte a, ref int b);
+
+        private string ReadCardData(int length, ReadFunction function, string encode = "GB2312")
+        {
+            byte[] item = new byte[length];
+            function(ref item[0], ref length);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            return Encoding.GetEncoding(encode).GetString(item).Trim('\0');
         }
 
         private IDCard GetData()
         {
-            try
+            var imgData = ReadCardData(40960, CVRSDK.Getbase64BMPData);
+            var name = ReadCardData(128, CVRSDK.GetPeopleName);
+            var cnName = ReadCardData(128, CVRSDK.GetPeopleChineseName);
+            var number = ReadCardData(128, CVRSDK.GetPeopleIDCode);
+            var peopleNation = ReadCardData(128, CVRSDK.GetPeopleNation);
+            var peopleNationCode = ReadCardData(128, CVRSDK.GetNationCode);
+            var validtermOfStart = ReadCardData(128, CVRSDK.GetStartDate);
+            var birthday = ReadCardData(128, CVRSDK.GetPeopleBirthday);
+            var address = ReadCardData(128, CVRSDK.GetPeopleAddress);
+            var validtermOfEnd = ReadCardData(128, CVRSDK.GetEndDate);
+            var signdate = ReadCardData(128, CVRSDK.GetDepartment);
+            var sex = ReadCardData(128, CVRSDK.GetPeopleSex);
+            var certType = ReadCardData(32, CVRSDK.GetCertType, "ASCII");
+
+            byte[] samid = new byte[128];
+            CVRSDK.CVR_GetSAMID(ref samid[0]);
+
+            bool bCivic = true;
+
+            int nStart = certType.IndexOf("I");
+            if (nStart != -1) bCivic = false;
+
+            if (!bCivic) throw new NotSupportException();
+
+            IDCard card = new IDCard()
             {
-                //byte[] imgData = new byte[40960];
-                int length = 40960;
-                //CVRSDK.Getbase64BMPData(ref imgData[0], ref length);
-
-                byte[] name = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleName(ref name[0], ref length);
-
-                byte[] cnName = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleChineseName(ref cnName[0], ref length);
-
-                byte[] number = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleIDCode(ref number[0], ref length);
-
-                byte[] peopleNation = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleNation(ref peopleNation[0], ref length);
-
-                byte[] peopleNationCode = new byte[128];
-                length = 128;
-                CVRSDK.GetNationCode(ref peopleNationCode[0], ref length);
-
-                byte[] validtermOfStart = new byte[128];
-                length = 128;
-                CVRSDK.GetStartDate(ref validtermOfStart[0], ref length);
-
-                byte[] birthday = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleBirthday(ref birthday[0], ref length);
-
-                byte[] address = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleAddress(ref address[0], ref length);
-
-                byte[] validtermOfEnd = new byte[128];
-                length = 128;
-                CVRSDK.GetEndDate(ref validtermOfEnd[0], ref length);
-
-                byte[] signdate = new byte[128];
-                length = 128;
-                CVRSDK.GetDepartment(ref signdate[0], ref length);
-
-                byte[] sex = new byte[128];
-                length = 128;
-                CVRSDK.GetPeopleSex(ref sex[0], ref length);
-
-                byte[] samid = new byte[128];
-                CVRSDK.CVR_GetSAMID(ref samid[0]);
-
-                bool bCivic = true;
-                byte[] certType = new byte[32];
-                length = 32;
-                CVRSDK.GetCertType(ref certType[0], ref length);
-
-                string strType = System.Text.Encoding.ASCII.GetString(certType);
-                int nStart = strType.IndexOf("I");
-                if (nStart != -1) bCivic = false;
-
-                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                var encoding = Encoding.GetEncoding("GB18030");
-                if (bCivic)
-                {
-                    IDCard card = new IDCard()
-                    {
-                        //ImgString = Encoding.GetEncoding("GB2312").GetString(imgData).Trim('\0'),
-                        sex = Encoding.GetEncoding("GB2312").GetString(sex).Trim('\0'),
-                        name = Encoding.GetEncoding("GB18030").GetString(name).Trim('\0'),
-                        number = Encoding.GetEncoding("GB18030").GetString(number).Trim('\0'),
-                        peopleNation = Encoding.GetEncoding("GB18030").GetString(peopleNation).Trim('\0'),
-                        birthday= Encoding.GetEncoding("GB18030").GetString(birthday).Trim('\0'),
-                        address = Encoding.GetEncoding("GB18030").GetString(address).Trim('\0'),
-                        signdate = Encoding.GetEncoding("GB18030").GetString(signdate).Trim('\0'),
-                        validtermOfStart = Encoding.GetEncoding("GB18030").GetString(validtermOfStart).Trim('\0'),
-                        samid = Encoding.GetEncoding("GB18030").GetString(samid).Trim('\0'),
-                    };
-                    return card;
-                }
-
-            }
-            catch (Exception)
-            {
-                //MessageBox.Show(ex.ToString());
-            }
-            return new IDCard();
+                ImgString = imgData,
+                sex = sex,
+                name = name,
+                number = number,
+                peopleNation = peopleNation,
+                birthday = birthday,
+                address = address,
+                signdate = signdate,
+                validtermOfStart = validtermOfStart,
+                samid = Encoding.GetEncoding("GB18030").GetString(samid).Trim('\0'),
+            };
+            return card;
         }
 
     }

@@ -40,7 +40,7 @@ namespace IdReader.Models
             pairs.Add(new KeyValuePair<string, string>("code", "1"));
 
             FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(pairs);
-            var res = await httpClient.PostAsync(Util.serverUrl, formUrlEncodedContent);
+            var res = await httpClient.PostAsync(Util.ServerUrl, formUrlEncodedContent);
 
             var json = await res.Content.ReadAsStringAsync();
             fullInfo(json);
@@ -67,7 +67,7 @@ namespace IdReader.Models
   
 
             FormUrlEncodedContent formUrlEncodedContent = new FormUrlEncodedContent(pairs);
-            var res= await httpClient.PostAsync(Util.serverUrl, formUrlEncodedContent);
+            var res= await httpClient.PostAsync(Util.ServerUrl, formUrlEncodedContent);
 
             var json = await res.Content.ReadAsStringAsync();
             fullInfo(json);

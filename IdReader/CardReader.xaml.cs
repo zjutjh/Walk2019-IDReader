@@ -10,12 +10,12 @@ using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
-
 namespace IdReader
 {
     public sealed partial class CardReader : UserControl
     {
+        public delegate void IDCardReceivedEventHandler(object sender, System.EventArgs e);
+        public event IDCardReceivedEventHandler IDCardReceived;
         private static bool keepReading = false;
 
         public CardReader()
@@ -28,7 +28,7 @@ namespace IdReader
             getIdCardOnce();
         }
 
-        public  void KeepReadCard()
+        public void KeepReadCard()
         {
             keepReading = true;
             KeepgetIdCard();
@@ -39,9 +39,6 @@ namespace IdReader
             keepReading = false;
         }
 
-        public delegate void IDCardReceivedEventHandler(object sender, System.EventArgs e);
-        public event IDCardReceivedEventHandler IDCardReceived;
-
         public IDCard CurrentCard
         {
             get { return (IDCard)GetValue(CurrentCardProperty); }
@@ -50,26 +47,21 @@ namespace IdReader
         public static readonly DependencyProperty CurrentCardProperty =
             DependencyProperty.Register("CurrentCard", typeof(IDCard), typeof(MainPage), new PropertyMetadata(new IDCard()));
 
-       
+
 
         private async void getIdCardOnce()
         {
-            ValueSet vs = new ValueSet();
-            vs.Add("Command", "IDCard");
-            AppServiceConnection connection = App.Connection;
-            if (connection != null)
+            try
             {
-                var vss = await connection.SendMessageAsync(vs);
-                var arry = vss.Message.ToArray();
-                if (vss.Message.Keys.Count >= 1)
-                {
-                    CurrentCard = Newtonsoft.Json.JsonConvert.DeserializeObject<IDCard>(arry[0].Value as String);
-                    IDCardReceived?.Invoke(this, null);
-                }
-
+                CurrentCard = await App.coreManager.ReadCard();
+                IDCardReceived?.Invoke(this, null);
+            }
+            catch (Exception)
+            {
 
             }
         }
+
         public void LoadCard(Member m)
         {
             CurrentCard.name = m.name;
@@ -77,35 +69,25 @@ namespace IdReader
         }
         private async void KeepgetIdCard()
         {
-            ValueSet vs = new ValueSet();
-            vs.Add("Command", "IDCard");
-            AppServiceConnection connection = App.Connection;
-            if (connection != null)
-            {
-                await Task.Run(async () =>
-                {
 
+            await Task.Run(async () =>
+            {
+                try
+                {
                     while (keepReading)
                     {
-                        var vss = await connection.SendMessageAsync(vs);
-                        var arry = vss.Message.ToArray();
-                        if (vss.Message.Keys.Count >= 1)
-                        {
-
-                            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
-                            {
-                                CurrentCard = Newtonsoft.Json.JsonConvert.DeserializeObject<IDCard>(  arry[0].Value as String);
-                                IDCardReceived?.Invoke(this, null);
-                            });     
-                        }
-
+                        CurrentCard = await App.coreManager.ReadCard();
+                        IDCardReceived?.Invoke(this, null);
                         Thread.Sleep(800);
                     }
+                }
+                catch (Exception)
+                {
 
-                });
 
+                }
+            });
 
-            }
         }
     }
 }

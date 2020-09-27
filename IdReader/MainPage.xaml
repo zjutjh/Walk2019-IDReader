@@ -8,30 +8,24 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="Page_Loaded">
+    Loaded="Page_Loaded">
 
     <Grid>
         <muxc:NavigationView IsBackButtonVisible="Collapsed"  ItemInvoked="NavView_ItemInvoked"  PaneTitle="精弘毅行身份证" >
             <muxc:NavigationView.PaneCustomContent>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Padding="15,0,0,0" DoubleTapped="StackPanel_DoubleTapped"    >
-                    <Border x:Name="StColor" CornerRadius="999" Background="Yellow" Height="15" Width="15"></Border>
-                    <TextBlock Margin="10,0,0,0" x:Name="StText">等待连接</TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Padding="12" DoubleTapped="StackPanel_DoubleTapped"    >
+                    <Border x:Name="SystemInfoColor" CornerRadius="999" Background="Yellow"  HorizontalAlignment="Center" Height="15" Width="15" VerticalAlignment="Center"></Border>
+                    <TextBlock Margin="20,0,0,0" x:Name="StText" HorizontalAlignment="Center" VerticalAlignment="Center">等待连接</TextBlock>
                 </StackPanel>
-               
             </muxc:NavigationView.PaneCustomContent>
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader  Content="起点"/>
                 <muxc:NavigationViewItem Icon="Play" Content="起点录入" Tag="start" />
-             
                 <muxc:NavigationViewItemSeparator></muxc:NavigationViewItemSeparator>
                 <muxc:NavigationViewItemHeader Content="终点"/>
-
-                <muxc:NavigationViewItem Icon="Refresh" Content="终点正常" Tag="end" />
-                <muxc:NavigationViewItem Icon="Download" Content="终点异常" Tag="endE" />
-               
+                <muxc:NavigationViewItem Icon="Refresh" Content="终点录入" Tag="end" />
             </muxc:NavigationView.MenuItems>
             <Grid>
-                <Image Source="/Assets/jhlogo.png" Stretch="None" />
                 <Frame x:Name="ContentFrame"/>
               
             </Grid>

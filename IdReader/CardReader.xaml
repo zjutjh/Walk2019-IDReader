@@ -7,42 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="250"
-    d:DesignWidth="350"
-    MinHeight="225">
+    d:DesignWidth="450"
+    MinHeight="250">
 
-    <Grid CornerRadius="30" Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
+    <Grid CornerRadius="30" Padding="15" Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
-
 
         <StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="25,30,30,0">
+            <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Foreground="#FF5B95FF" Padding="5,5,10,0" FontSize="16">姓  名</TextBlock>
                 <TextBlock Foreground="Black" FontSize="20" Text="{x:Bind CurrentCard.name,Mode=OneWay}">精小弘</TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="25,15,30,0">
+            <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Foreground="#FF5B95FF" Padding="5,0,10,0" FontSize="16">性  别</TextBlock>
                 <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentCard.sex,Mode=OneWay}">男</TextBlock>
-
                 <TextBlock Foreground="#FF5B95FF" Padding="5,0,10,0" FontSize="16" Margin="20,0,0,0">民  族</TextBlock>
                 <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentCard.peopleNation,Mode=OneWay}">汉</TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="25,15,16,0">
+            <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Foreground="#FF5B95FF" Padding="5,0,10,0" FontSize="16">出  生</TextBlock>
                 <TextBlock Foreground="Black" FontSize="16" Text="{x:Bind CurrentCard.birthday,Mode=OneWay}">2000年2月30日</TextBlock>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="25,15,0,0" >
+            <StackPanel Orientation="Horizontal" Margin="10" >
                 <TextBlock Foreground="#FF5B95FF" Padding="5,0,010,0" FontSize="16">住  址</TextBlock>
                 <TextBlock Foreground="Black" FontSize="12"  MaxWidth="135" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"
                            Text="{x:Bind CurrentCard.address,Mode=OneWay}">杭州市西湖区浙江工业大学(屏峰校区）养贤府314</TextBlock>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="0,10,0,20" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock Foreground="#FF5B95FF" Padding="5,5,5,0" FontSize="16">公民身份证号码</TextBlock>
+        <StackPanel Orientation="Horizontal"  VerticalAlignment="Bottom" HorizontalAlignment="Center"  Grid.ColumnSpan="2">
+            <TextBlock Foreground="#FF5B95FF"  Padding="10,0,10,2" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" >公民身份证号码</TextBlock>
             <TextBlock Foreground="Black" FontSize="20" TextWrapping="Wrap" FontFamily="Blod" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{x:Bind CurrentCard.number,Mode=OneWay}">330106200002300000</TextBlock>
         </StackPanel>
 

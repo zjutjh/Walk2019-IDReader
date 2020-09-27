@@ -1,3 +1,4 @@
+echo "安装驱动中"
 @echo off
 cd /d "%~dp0"
 cacls.exe "%SystemDrive%\System Volume Information" >nul 2>nul

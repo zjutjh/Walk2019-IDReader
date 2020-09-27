@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-using System.Runtime.InteropServices;//这是用到DllImport时候要引入的包
+using System.Runtime.InteropServices;
 
 namespace CVR100A
 {
@@ -12,7 +12,7 @@ namespace CVR100A
     class CVRSDK
     {
         [DllImport("Termb.dll", EntryPoint = "CVR_InitComm", CharSet = CharSet.Auto, SetLastError = false)]
-        public static extern int CVR_InitComm(int Port);//声明外部的标准动态库, 跟Win32API是一样的
+        public static extern int CVR_InitComm(int Port);
 
 
         [DllImport("Termb.dll", EntryPoint = "CVR_Authenticate", CharSet = CharSet.Auto, SetLastError = false)]
@@ -87,14 +87,14 @@ namespace CVR100A
         [DllImport("Termb.dll", EntryPoint = "CVR_GetSAMID", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
         public static extern int CVR_GetSAMID(ref byte strTmp);
 
-        //[DllImport("Termb.dll", EntryPoint = "GetBMPData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
-        //public static extern int GetBMPData(ref byte btBmp, ref int nLen);
+        [DllImport("Termb.dll", EntryPoint = "GetBMPData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
+        public static extern int GetBMPData(ref byte btBmp, ref int nLen);
 
-        //[DllImport("Termb.dll", EntryPoint = "GetJpgData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
-        //public static extern int GetJpgData(ref byte btBmp, ref int nLen);
+        [DllImport("Termb.dll", EntryPoint = "GetJpgData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
+        public static extern int GetJpgData(ref byte btBmp, ref int nLen);
 
-        //[DllImport("Termb.dll", EntryPoint = "GetJpgData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
-        //public static extern int Getbase64BMPData(ref byte pData, ref int pLen);
+        [DllImport("Termb.dll", EntryPoint = "GetJpgData", CharSet = CharSet.Auto, SetLastError = false, CallingConvention = CallingConvention.StdCall)]
+        public static extern int Getbase64BMPData(ref byte pData, ref int pLen);
     }
 
 }

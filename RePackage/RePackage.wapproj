@@ -51,8 +51,8 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>c8270fab-3abc-4294-bcd0-3da14ddbc610</ProjectGuid>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\IdReader\IdReader.csproj</EntryPointProjectUniqueName>
@@ -61,7 +61,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>2BED37C8E3A7B6BF3989850D9BB9FF43DC86C970</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>C90C53F318B8F58E2063E842D980567CF0971CB6</PackageCertificateThumbprint>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
@@ -140,10 +140,11 @@
     <Content Include="Core\api-ms-win-crt-string-l1-1-0.dll" />
     <Content Include="Core\api-ms-win-crt-time-l1-1-0.dll" />
     <Content Include="Core\api-ms-win-crt-utility-l1-1-0.dll" />
+    <Content Include="Core\BridgeLibs.dll" />
+    <Content Include="Core\BridgeLibs.pdb" />
     <Content Include="Core\clrcompression.dll" />
     <Content Include="Core\clretwrc.dll" />
     <Content Include="Core\clrjit.dll" />
-    <Content Include="Core\config.ini" />
     <Content Include="Core\Core.deps.json" />
     <Content Include="Core\Core.dll" />
     <Content Include="Core\Core.exe" />
@@ -156,6 +157,7 @@
     <Content Include="Core\device\sdt_s_drv_x64.cat" />
     <Content Include="Core\device\USBDrv.sys" />
     <Content Include="Core\device\USBDrvCo.inf" />
+    <Content Include="Core\DLL_File.dll" />
     <Content Include="Core\hostfxr.dll" />
     <Content Include="Core\hostpolicy.dll" />
     <Content Include="Core\license.dat" />
@@ -166,7 +168,7 @@
     <Content Include="Core\Microsoft.Win32.Primitives.dll" />
     <Content Include="Core\Microsoft.Win32.Registry.dll" />
     <Content Include="Core\mscordaccore.dll" />
-    <Content Include="Core\mscordaccore_amd64_amd64_4.700.19.46205.dll" />
+    <Content Include="Core\mscordaccore_amd64_amd64_4.700.20.41105.dll" />
     <Content Include="Core\mscordbi.dll" />
     <Content Include="Core\mscorlib.dll" />
     <Content Include="Core\mscorrc.debug.dll" />
